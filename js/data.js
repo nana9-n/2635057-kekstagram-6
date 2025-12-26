@@ -1,4 +1,5 @@
 import { getRandomInt, getRandomArrayElement } from './util.js';
+import { getRandomInt, getRandomArrayElement, createRandomIdFromRangeGenerator } from './util.js';
 
 const DESCRIPTIONS = [
   'это был большой путь!',
@@ -20,6 +21,7 @@ const MESSAGES = [
 ];
 
 const NAMES = ['Настя', 'Лера', 'Вика', 'Карина', 'Максим', 'Артём', 'Саша', 'Даша', 'Аркадий'];
+
 
 function createComment(id) {
   const messageCount = getRandomInt(1, 2); 
@@ -43,6 +45,30 @@ function createPhoto(id) {
     description: getRandomArrayElement(DESCRIPTIONS),
     likes: getRandomInt(15, 200),
     comments,
+
+const generateRandomUniqueId = createRandomIdFromRangeGenerator(1, 1000);
+const generatePhotoId = createRandomIdFromRangeGenerator(1, 25);
+
+function createComment() {
+  return {
+    id: generateRandomUniqueId(),
+    avatar: `img/avatar-${getRandomInt(1, 6)}.svg`,
+    message: getRandomArrayElement(MESSAGES),
+    name: getRandomArrayElement(NAMES)
+  };
+}
+
+function createPhoto() {
+  const id = generatePhotoId();
+  const commentsCount = getRandomInt(0, 30);
+  const comments = Array.from({ length: commentsCount }, createComment);
+
+  return {
+    id: id,
+    url: `photos/${id}.jpg`,
+    description: getRandomArrayElement(DESCRIPTIONS),
+    likes: getRandomInt(15, 200),
+    comments: comments
   };
 }
 
@@ -51,4 +77,7 @@ function createPhotos() {
 }
 
 export { DESCRIPTIONS, MESSAGES, NAMES, createPhotos };
-//
+  return Array.from({ length: 25 }, createPhoto);
+}
+
+export { DESCRIPTIONS, MESSAGES, NAMES, createPhotos };

@@ -84,4 +84,3 @@ function extractNumber(value) {
 }
 
 export { getRandomInt, getRandomArrayElement, createRandomIdFromRangeGenerator, checkStringLength, isPalindrome, extractNumber };
-
